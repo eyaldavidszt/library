@@ -23,9 +23,14 @@ const bookOne = new Book('The Hobbit', 'J.R.R. Tolkien', '295', false);
 console.log(bookOne.info());
 
 function addBookToLibrary() {
-    // take input from user about data of the book. then instanciate the book with new Book(). Then add it to array.
   }
   
-//visualize the book array on the screen somehow.
+//**********************
 
-// how to take input from user? using my html!! so... i need to design a html with input fields and stuff... ok.
+//on page load, parse array and make it into onscreen cards(will only be relevant once data storing is added)
+
+//on add book->fillform->submit, create new book object and push it to array.
+// then create dom element of last array object with index attribute of array length(minus 1) and append it to body
+
+//on remove book, find index="" attribute with js, then remove the object in that index from the array, 
+//  and also remove the element associated with it from the page. 
