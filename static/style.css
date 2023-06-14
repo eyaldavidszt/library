@@ -2,6 +2,8 @@
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -56,24 +58,65 @@ body {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -80%);
+    transform: translate(-50%, -80%) scale(0);
     opacity: 0;
-    transition: .2s ease-in-out;
+    transition: opacity .2s ease-in-out;
     z-index: 10;
-
+    font-weight: bold;
     font-size: 2rem;
-    border: 1px solid black;
-    background-color: white;
+    border: none;
+    background-color: #e2e8f0;
     width: clamp(300px, 50%, 600px);
-    
+
+    border-radius: 10px;
 }
 
-.modal input, .modal-body button {
+.close-button {
+    background-color: #e2e8f0;
+}
+
+label, .read-status {
+    color: black;
+}
+.modal input[type="text"], .modal-body button {
     padding: 8px 16px;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: 2px 2px 1px black;
+    font-size: 1.25rem;
+    font-family: inherit;
+    border: none;
+    transition: .09s;
+
 }
 
+.modal-body button {
+    align-self: center;
+    background-color: #CDC2AE;
+    cursor: pointer;
+}
+
+.modal-body button:hover  {
+    box-shadow: 1px 1px 1px black;
+}
+
+.read-status {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+input[type="checkbox"] {
+    height: 32px;
+    width: 32px;
+}
+
+label {
+    font-size: 1.5rem;
+}
 .modal.active {
-    transform: translate(-50%, -80%);
+    transform: translate(-50%, -80%) scale(1);
     opacity: 1;
 
 }

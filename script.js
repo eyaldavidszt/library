@@ -130,3 +130,5 @@ overlay.addEventListener('click', () => {
         closeModal(modal);
     });
 });
+
+button.addEventListener('click', addBookToLibrary);
