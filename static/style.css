@@ -108,7 +108,7 @@ label, .read-status {
     align-self: center;
     background-color: #CDC2AE;
     cursor: pointer;
-    color: white;
+    color: black;
 }
 
 .modal-body button:hover  {
