@@ -13,17 +13,31 @@
     <div class="title">
         Your Books
     </div>
-    <button class="add-btn">+ Add Book</button>
+    <button data-modal-target="#modal" class="add-btn">+ Add Book</button>
+    <div class="modal" id="modal">
+        <div class="modal-header">
+            <div class="modal-title">Add your book</div>
+            <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form action="" method="">
+                <input type="text" placeholder="Title" aria-label="Insert Title">
+                <input type="text" placeholder="Author" aria-label="Insert Author">
+                <input type="text" pattern="[0-9]+" placeholder="Pages" aria-label="Insert Pages">
+                <button>Add</button>
+            </form>
+        </div>
+    </div>
     <div class="books">
         <div class="book-info">
-            <div class="book">
+            <div class="book animate">
                 <h1>The Hobbit</h1>
                 <h2>J.R.R Tolkien</h2>
                 <h3>295 Pages</h3>
             </div>
             <h3>Not read yet</h3>
         </div>
-        
     </div>
+    <div id="overlay"></div>
 </body>
 </html>
