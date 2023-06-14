@@ -42,7 +42,8 @@ function createBookElement(book, index) {
     let pagesHeader = document.createElement('h3');
     pagesHeader.textContent = `${pages} pages`;
     
-    let readHeader = document.createElement('h3');
+    let readHeader = document.createElement('button');
+    readHeader.classList.add('read-status-changer');
     readHeader.textContent = `${read}`;
     
     let removeButton = document.createElement('button');
@@ -141,6 +142,22 @@ body.addEventListener('click', (event) => {
             bookToDelete.remove();
         }
     });
+
+body.addEventListener('click', (event) => {
+    if (event.target.className === 'read-status-changer') {
+        newText = (event.target.textContent == 'Read' ? 'Not read yet' : 'Read');
+        event.target.textContent = newText;
+        let index = event.target.closest('.book-info').getAttribute('index');
+        let bookToChange = myLibrary[index];
+        if (bookToChange.read)
+        {
+            bookToChange.read = false;
+        }
+        else {
+            bookToChange.read = true;
+        }
+    }
+});
 
   //*****modal*****//
 
