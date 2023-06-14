@@ -1,0 +1,1 @@
+Simple book logger. Will add data storage soon. Feedback welcome!
