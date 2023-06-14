@@ -21,27 +21,28 @@
         </div>
         <div class="modal-body">
             <form action="" method="">
-                <input type="text" placeholder="Title" aria-label="Insert Title">
-                <input type="text" placeholder="Author" aria-label="Insert Author">
-                <input type="text" pattern="[0-9]+" placeholder="Pages" aria-label="Insert Pages">
+                <input type="text" placeholder="Title" aria-label="Insert Title" id="title-input" autocomplete="off">
+                <input type="text" placeholder="Author" aria-label="Insert Author" id="author-input" autocomplete="off">
+                <input type="text" pattern="[0-9]+" placeholder="Pages" aria-label="Insert Pages" id="pages-input" autocomplete="off">
                 <div class="read-status">
                     Already read?
                     <input type="checkbox" name="read" id="read-status">
                 </div>
 
-                <button>Add</button>
+                <button class="create-btn">Add</button>
+                <div class="error-message"></div>
             </form>
         </div>
     </div>
     <div class="books">
-        <div class="book-info">
+        <!-- <div class="book-info">
             <div class="book animate">
                 <h1>The Hobbit</h1>
                 <h2>J.R.R Tolkien</h2>
                 <h3>295 Pages</h3>
             </div>
             <h3>Not read yet</h3>
-        </div>
+        </div> -->
     </div>
     <div id="overlay"></div>
 </body>

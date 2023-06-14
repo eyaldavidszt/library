@@ -47,13 +47,19 @@ body {
     aspect-ratio: 3/4;
     height: 300px;
     padding: 16px;
-    border: 1px solid white;
+    border: 1px solid black;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    box-shadow: 3px 3px 1px white;
 }
-
+.book-info > h3 {
+    padding-top: 8px;
+}
 .modal {
     position: fixed;
     top: 50%;
@@ -158,4 +164,18 @@ label {
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+.remove {
+    border: inherit;
+    background: inherit;
+    color: inherit;
+    font-family: inherit;
+    cursor: pointer;
+    font-size: inherit;
+}
+
+.error-message {
+    font-size: 1rem;
+    color: black;
 }

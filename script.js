@@ -21,114 +21,168 @@ function Book(title, author, pages, read) {
 }
 const bookOne = new Book('The Hobbit', 'J.R.R. Tolkien', '295', false);
 console.log(bookOne.info());
+myLibrary.push(bookOne);
 
-function addBookToLibrary() {
-    // get user input and call constructor function with it
-    myLibrary.push(bookOne);
-  }
+// receives a book object(one which is made with Book constructor) and turns it into dom element.
+function createBookElement(book, index) {
+    let title = book.title;
+    let author = book.author;
+    let pages = book.pages;
+    let read = book.read ? 'Read' : 'Not read yet'; 
 
-addBookToLibrary();
-  
-//**********************
+    let newBook = document.createElement('div');
+    newBook.classList.add('book');
 
-//on page load, parse array and make it into onscreen cards(will only be relevant once data storing is added)
+    let titleHeader = document.createElement('h1');
+    titleHeader.textContent = title;
+    
+    let authorHeader = document.createElement('h2');
+    authorHeader.textContent = author;
+    
+    let pagesHeader = document.createElement('h3');
+    pagesHeader.textContent = `${pages} pages`;
+    
+    let readHeader = document.createElement('h3');
+    readHeader.textContent = `${read}`;
+    
+    let removeButton = document.createElement('button');
+    removeButton.textContent = 'Remove';
+    removeButton.classList.add('remove');
 
-//on add book->fillform->submit, create new book object and push it to array.
-// then create dom element of last array object with index attribute of array length(minus 1) and append it to body
+    let randRed = Math.floor((Math.random() * 150) + 50);
+    let randGreen = Math.floor((Math.random() * 150) + 50);
+    let randBlue = Math.floor((Math.random() * 200) + 1);
+    newBook.style.backgroundColor = `rgb(${randRed}, ${randGreen}, ${randBlue})`;
+    
+    
+    
+    newBook.appendChild(titleHeader);
+    newBook.appendChild(authorHeader);
+    newBook.appendChild(pagesHeader);
 
-//on remove book, find index="" attribute with js, then remove the object in that index from the array, 
-//  and also remove the element associated with it from the page. 
-let index = 0;
+    let newBookInfo = document.createElement('div');
+    newBookInfo.setAttribute('index', index);
+    newBookInfo.appendChild(newBook);
+    newBookInfo.appendChild(readHeader);
+    newBookInfo.appendChild(removeButton);
+    
+    newBookInfo.classList.add('book-info');
+    
+    return newBookInfo;
+}
+
 function loadArray() {
+    let index = 0;
     for (const book of myLibrary) {
-        let title = book.title;
-        let author = book.author;
-        let pages = book.pages;
-        
-        let read = book.read ? 'Read' : 'Not read yet'; 
-        
-        
-        let newBook = document.createElement('div');
-        newBook.classList.add('book');
-        
-        let titleHeader = document.createElement('h1');
-        titleHeader.textContent = title;
-        
-        let authorHeader = document.createElement('h2');
-        authorHeader.textContent = author;
-        
-        let pagesHeader = document.createElement('h3');
-        pagesHeader.textContent = `${pages} pages`;
-        
-        let randRed = Math.floor((Math.random() * 150) + 50);
-        let randGreen = Math.floor((Math.random() * 150) + 50);
-        let randBlue = Math.floor((Math.random() * 200) + 1);
-        newBook.style.backgroundColor = `rgb(${randRed}, ${randGreen}, ${randBlue})`;
-        
-        
-        newBook.appendChild(titleHeader);
-        newBook.appendChild(authorHeader);
-        newBook.appendChild(pagesHeader);
-        newBook.setAttribute('index', index);
-
-        
+        if (book == null) return;
+        let newBookInfo = createBookElement(book, index);
         let bookSection = document.querySelector('.books');
-        let newBookInfo = document.createElement('div');
-        newBookInfo.classList.add('.book-info');
-        
-        let readHeader = document.createElement('h3');
-        readHeader.textContent = `${read}`;
-        newBookInfo.appendChild(newBook);
-        newBookInfo.appendChild(readHeader);
         bookSection.appendChild(newBookInfo);
+        index++;
     }
 }
 
 loadArray();
 
-let book = document.querySelector('.book');
-let randRed = Math.floor((Math.random() * 150) + 50);
-let randGreen = Math.floor((Math.random() * 150) + 50);
-let randBlue = Math.floor((Math.random() * 200) + 1);
-book.style.backgroundColor = `rgb(${randRed}, ${randGreen}, ${randBlue})`;
 
-const openModalButtons = document.querySelectorAll('[data-modal-target]');
-const closeModalButtons = document.querySelectorAll('[data-close-button]');
-const overlay = document.querySelector('#overlay');
+function addBook(event) {
+    // get user input and call constructor function with it
+    event.preventDefault();
+    const title = document.querySelector('#title-input').value;
+    const author = document.querySelector('#author-input').value;
+    const pages = document.querySelector('#pages-input').value;
+    const read = document.querySelector('#read-status')['checked'] ? true : false;
 
-openModalButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const modal = document.querySelector(button.dataset.modalTarget);
-        openModal(modal);
-    });
-});
+    let error = document.querySelector('.error-message');
 
-closeModalButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const modal = button.closest('.modal');
-        closeModal(modal);
-    });
-});
+    if (!(title && title.length > 1 && author && author.length > 1 && pages && parseInt(pages))) {
+        if (!(pages && parseInt(pages))) {
+            error.textContent = 'Page count must be a number';
+        }
+        return;
+    }
+    const book = new Book(title, author, pages, read);
+    
+    // push new object to array::   
+    
+    myLibrary.push(book);
+    let index = myLibrary.length - 1;
+    let bookInfo = createBookElement(book, index);
 
-function openModal(modal) {
-    if (modal == null) return;
+    let books = document.querySelector('.books');
+    books.appendChild(bookInfo);
 
-    modal.classList.add('active');
-    overlay.classList.add('active');
-}
+    
+    document.querySelector('#author-input').value = '';
+    document.querySelector('#title-input').value = '';
+    document.querySelector('#pages-input').value = '';
+    document.querySelector('#read-status').checked = false;
 
-function closeModal(modal) {
-    if (modal == null) return;
-
+    let modal = document.querySelector('#modal');
+    let overlay = document.querySelector('#overlay');
     modal.classList.remove('active');
     overlay.classList.remove('active');
-}
+    
 
-overlay.addEventListener('click', () => {
-    const modals = document.querySelectorAll('.modal.active');
-    modals.forEach(modal => {
-        closeModal(modal);
+  }
+
+/// on button click, getAttribute(index) of closest bookInfo.
+/// myLibrary[that index] == null 
+/// remove DOM of closest bookInfo
+
+let body = document.querySelector('body');
+body.addEventListener('click', (event) => {
+        if (event.target.className === 'remove') {
+            console.log('hello');
+            let bookToDelete = event.target.closest('.book-info');
+            let index = bookToDelete.getAttribute('index');
+            myLibrary[index] = null;
+            console.log(myLibrary[index]);
+            bookToDelete.remove();
+        }
     });
-});
 
-button.addEventListener('click', addBookToLibrary);
+  //*****modal*****//
+
+  const openModalButtons = document.querySelectorAll('[data-modal-target]');
+  const closeModalButtons = document.querySelectorAll('[data-close-button]');
+  const overlay = document.querySelector('#overlay');
+
+  openModalButtons.forEach(button => {
+      button.addEventListener('click', () => {
+          const modal = document.querySelector(button.dataset.modalTarget);
+          openModal(modal);
+      });
+  });
+
+  closeModalButtons.forEach(button => {
+      button.addEventListener('click', () => {
+          const modal = button.closest('.modal');
+          closeModal(modal);
+      });
+  });
+
+  function openModal(modal) {
+      if (modal == null) return;
+
+      modal.classList.add('active');
+      overlay.classList.add('active');
+  }
+
+  function closeModal(modal) {
+      if (modal == null) return;
+
+      modal.classList.remove('active');
+      overlay.classList.remove('active');
+  }
+
+  overlay.addEventListener('click', () => {
+      const modals = document.querySelectorAll('.modal.active');
+      modals.forEach(modal => {
+          closeModal(modal);
+      });
+  });
+
+  let creator = document.querySelector('.create-btn');
+  creator.addEventListener('click', addBook);
+//**********//
