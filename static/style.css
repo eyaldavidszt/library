@@ -65,7 +65,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: 16px;
+    gap: 12px;
+    padding-bottom: 24px;
 }
 .modal {
     position: fixed;
@@ -107,6 +108,7 @@ label, .read-status {
     align-self: center;
     background-color: #CDC2AE;
     cursor: pointer;
+    color: white;
 }
 
 .modal-body button:hover  {
@@ -193,6 +195,8 @@ label {
 
 .read-status-changer {
     all: inherit;
+    margin: 0;
+    padding: 0;
     cursor: pointer;
     font-size: 1.25rem;
     transition: 0.1s;
