@@ -1,13 +1,14 @@
 let myLibrary = [];
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
 
-    
-    Book.prototype.info = function() {
+    }
+    info() {
         let readStatus;
         if (this.read) {
             readStatus = 'read';
@@ -15,7 +16,7 @@ function Book(title, author, pages, read) {
         else {
             readStatus = 'not read yet';
         }
-        return `${this.title} by ${this.author}, ${pages} pages, ${readStatus}`;
+        return `${this.title} by ${this.author}, ${this.pages} pages, ${readStatus}`;
 
     }
 }
@@ -134,11 +135,9 @@ function addBook(event) {
 let body = document.querySelector('body');
 body.addEventListener('click', (event) => {
         if (event.target.className === 'remove') {
-            console.log('hello');
             let bookToDelete = event.target.closest('.book-info');
             let index = bookToDelete.getAttribute('index');
             myLibrary[index] = null;
-            console.log(myLibrary[index]);
             bookToDelete.remove();
         }
     });
